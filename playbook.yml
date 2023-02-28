@@ -2,19 +2,32 @@
   hosts: elasticsearch_data_nodes
   become: true
   vars:
-    elasticsearch_version: latest
+    elasticsearch_version: 8.x
     elasticsearch_heap_size: 2g
     elasticsearch_cluster_name: elasticsearch
     elasticsearch_data_dir: /var/lib/elasticsearch
+    elasticsearch_key_url: 'https://artifacts.elastic.co/GPG-KEY-elasticsearch'
+    elasticsearch_repository: 'deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/{{ elasticsearch_version }}/apt stable main'
   tasks:
   - name: Install OpenJDK
     apt:
       name: openjdk-11-jdk
       state: present
   - name: Import the Elasticsearch PGP Key
-    apt_key:
-      url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    become: true
+    shell: wget -qO - "{{ elasticsearch_key_url }}" | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
+  - name: Install apt-transport-https
+    become: true
+    apt:
+      name: apt-transport-https
+      state: present
+  - name: Add ElasticSearch repository
+    become: true
+    copy:
+      content: "{{ elasticsearch_repository }}"
+      dest: /etc/apt/sources.list.d/elastic-{{ elasticsearch_version }}.list
   - name: Install the Elasticsearch debian package
+    become: true
     apt:
       name: elasticsearch
       state: present
