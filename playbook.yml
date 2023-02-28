@@ -1,4 +1,3 @@
----
 - name: Install and configure ElasticSearch
   hosts: elasticsearch_data_nodes
   become: true
@@ -7,6 +6,7 @@
     elasticsearch_heap_size: 2g
     elasticsearch_cluster_name: elasticsearch
     elasticsearch_data_dir: /var/lib/elasticsearch
+    elasticsearch_package_url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ elasticsearch_version }}-amd64.deb"
   tasks:
   - name: Install OpenJDK
     apt:
@@ -14,11 +14,11 @@
       state: present
   - name: Download ElasticSearch package
     get_url:
-      url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ elasticsearch_version }}-amd64.deb"
+      url: "{{ elasticsearch_package_url }}"
       dest: /tmp/elasticsearch.deb
   - name: Install ElasticSearch package
     apt:
-      deb: /tmp/elasticsearch.deb121
+      deb: /tmp/elasticsearch.deb
   - name: Configure ElasticSearch
     template:
       src: elasticsearch.yml.j2
