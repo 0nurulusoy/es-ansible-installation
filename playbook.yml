@@ -1,0 +1,38 @@
+---
+- name: Install and configure ElasticSearch
+  hosts: elasticsearch_data_nodes
+  become: true
+  vars:
+    elasticsearch_version: latest
+    elasticsearch_heap_size: 2g
+    elasticsearch_cluster_name: elasticsearch
+    elasticsearch_data_dir: /var/lib/elasticsearch
+  tasks:
+  - name: Install OpenJDK
+    apt:
+      name: openjdk-11-jdk
+      state: present
+  - name: Download ElasticSearch package
+    get_url:
+      url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ elasticsearch_version }}-amd64.deb"
+      dest: /tmp/elasticsearch.deb
+  - name: Install ElasticSearch package
+    apt:
+      deb: /tmp/elasticsearch.deb121
+  - name: Configure ElasticSearch
+    template:
+      src: elasticsearch.yml.j2
+      dest: /etc/elasticsearch/elasticsearch.yml
+      owner: elasticsearch
+      group: elasticsearch
+      mode: '0640'
+  - name: Set ElasticSearch host to 0.0.0.0
+    replace:
+      path: /etc/elasticsearch/elasticsearch.yml
+      regexp: '#network.host: 192.168.0.1'
+      replace: 'network.host: {{ network_host }}'
+  - name: Start and enable ElasticSearch service
+    systemd:
+      name: elasticsearch
+      state: started
+      enabled: true
