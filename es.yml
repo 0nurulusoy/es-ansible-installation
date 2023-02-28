@@ -1,0 +1,16 @@
+[elasticsearch_data_nodes]
+data_node1 ansible_host=10.142.0.4
+data_node2 ansible_host=10.142.0.5
+
+[elasticsearch_master_nodes]
+master_node ansible_host=10.142.0.6
+
+[elasticsearch:children]
+elasticsearch_data_nodes
+elasticsearch_master_nodes
+
+[elasticsearch:vars]
+elasticsearch_version=8.6.2
+elasticsearch_heap_size=2g
+elasticsearch_cluster_name=elasticsearch
+network_host=0.0.0.0
