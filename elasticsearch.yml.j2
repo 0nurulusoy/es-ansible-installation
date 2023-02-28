@@ -1,0 +1,6 @@
+cluster.name: {{ elasticsearch_cluster_name }}
+node.name: {{ ansible_hostname }}
+path.data: {{ elasticsearch_data_dir }}
+network.host: {{ network_host }}
+http.port: 9200
+discovery.seed_hosts: ["{{ groups['elasticsearch_data_nodes'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | list | join(',') }}"]
