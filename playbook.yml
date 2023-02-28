@@ -6,19 +6,19 @@
     elasticsearch_heap_size: 2g
     elasticsearch_cluster_name: elasticsearch
     elasticsearch_data_dir: /var/lib/elasticsearch
-    elasticsearch_package_url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ elasticsearch_version }}-amd64.deb"
   tasks:
   - name: Install OpenJDK
     apt:
       name: openjdk-11-jdk
       state: present
-  - name: Download ElasticSearch package
-    get_url:
-      url: "{{ elasticsearch_package_url }}"
-      dest: /tmp/elasticsearch.deb
-  - name: Install ElasticSearch package
+  - name: Import the Elasticsearch PGP Key
+    apt_key:
+      url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+  - name: Install the Elasticsearch debian package
     apt:
-      deb: /tmp/elasticsearch.deb
+      name: elasticsearch
+      state: present
+      update_cache: yes
   - name: Configure ElasticSearch
     template:
       src: elasticsearch.yml.j2
