@@ -5,9 +5,6 @@
     - es03
   become: true
   vars:
-    es01: "es01"
-    es02: "es02."
-    es03: "es03"
     elasticsearch_config_file: /etc/elasticsearch/elasticsearch.yml
   tasks:
     - name: Update the server and install apt-transport-https package
