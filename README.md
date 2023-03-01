@@ -1,10 +1,6 @@
 # ElasticSearch Instalation with Ansible
 
-This Ansible playbook sets up a multi-node Elasticsearch cluster with two data nodes and one master/ingest node. The playbook assumes Ubuntu 20.04 LTS as the operating system.
-
-set--> xpack.security.enabled: false
-write me a elasticsearcjh.yml that has 3 nodes and the roles will be 2 datanode, 3 masternode, they should all be able to discover easch other and their roles, and set xpack.security.enabled: false, network_host: 0.0.0.0
-
+This Ansible playbook sets up a multi-node Elasticsearch cluster with two data nodes and one master node. The playbook assumes Ubuntu 20.04 LTS as the operating system.
 
 ## Requirements
 - Ansible 2.10 or higher
@@ -28,13 +24,9 @@ write me a elasticsearcjh.yml that has 3 nodes and the roles will be 2 datanode,
 
 ### Configuration
 
-The following variables can be set in the site.yml file to customize the Elasticsearch installation:
+The variables can be set in the elasticsearch.yml.j2 file to customize the Elasticsearch installation.
 
-- cluster_name: The name of the Elasticsearch cluster. Default is mycluster.
-- jvm_heap_size: The JVM heap size for Elasticsearch. Default is 2g.
-- xpack_security_enabled: Whether to enable X-Pack security in Elasticsearch. Default is false.
-- network_host: The network host to use for Elasticsearch. Default is 0.0.0.0.
-- discovery_seed_hosts: A comma-separated list of seed hosts for Elasticsearch discovery. Default is ["es01", "es02", "es03"].
+
 - Check the cluster health with below command.
 		
 		curl -XGET http://es02:9200/_cluster/health?pretty=true
