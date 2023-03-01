@@ -2,6 +2,8 @@
 
 This Ansible playbook sets up a multi-node Elasticsearch cluster with two data nodes and one master/ingest node. The playbook assumes Ubuntu 20.04 LTS as the operating system.
 
+set--> xpack.security.enabled: false
+
 ## Requirements
 - Ansible 2.10 or higher
 - Access to three Ubuntu 20.04 LTS servers
