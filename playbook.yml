@@ -51,13 +51,47 @@
         name: elasticsearch
         state: present
 
-    - name: Generate Elasticsearch configuration file
-      template:
-        src: elasticsearch.yml.j2
-        dest: "{{ elasticsearch_config_file }}"
-        owner: elasticsearch
-        group: elasticsearch
-        mode: '0644'
+    - name: Generate Elasticsearch configuration file on es01
+      hosts: es01
+      vars:
+        node.roles: ["master", "data"]
+        node.name: es01
+      tasks:
+        - name: Generate Elasticsearch configuration file
+          template:
+            src: elasticsearch.yml.j2
+            dest: "{{ elasticsearch_config_file }}"
+            owner: elasticsearch
+            group: elasticsearch
+            mode: '0644'
+
+    - name: Generate Elasticsearch configuration file on es01
+      hosts: es02
+      vars:
+        node.roles: ["master", "data"]
+        node.name: es02
+      tasks:
+        - name: Generate Elasticsearch configuration file
+          template:
+            src: elasticsearch.yml.j2
+            dest: "{{ elasticsearch_config_file }}"
+            owner: elasticsearch
+            group: elasticsearch
+            mode: '0644'
+
+    - name: Generate Elasticsearch configuration file on es01
+      hosts: es03
+      vars:
+        node.roles: ["master"]
+        node.name: es03
+      tasks:
+        - name: Generate Elasticsearch configuration file
+          template:
+            src: elasticsearch.yml.j2
+            dest: "{{ elasticsearch_config_file }}"
+            owner: elasticsearch
+            group: elasticsearch
+            mode: '0644'
 
     - name: Start Elasticsearch service
       service:
