@@ -70,9 +70,6 @@
         owner: elasticsearch
         group: elasticsearch
         mode: '0644'
-      vars:
-        node_name: "{{ hostvars[inventory_hostname]['node_name'] }}"
-        node_data: "{{ hostvars[inventory_hostname]['node_data'] }}"
 
     - name: Start Elasticsearch service
       service:
