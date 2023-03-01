@@ -34,13 +34,6 @@
         url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
         state: present
 
-    - name: Set network.host property in Elasticsearch configuration
-      become: true
-      lineinfile:
-        path: /etc/elasticsearch/elasticsearch.yml
-        regexp: '^network.host:'
-        line: 'network.host: 0.0.0.0'
-
     - name: Add ElasticSearch repository
       become: true
       become_method: sudo    
@@ -55,6 +48,13 @@
         update_cache: yes
         name: elasticsearch
         state: present
+
+    - name: Set network.host property in Elasticsearch configuration
+      become: true
+      lineinfile:
+        path: /etc/elasticsearch/elasticsearch.yml
+        regexp: '^network.host:'
+        line: 'network.host: 0.0.0.0'
 
     - name: Start ElasticSearch service
       service:
