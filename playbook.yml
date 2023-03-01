@@ -81,7 +81,7 @@
       lineinfile:
         path: /etc/elasticsearch/elasticsearch.yml
         regexp: '^cluster.initial_master_nodes:'
-        line: 'cluster.initial_master_nodes: ["es01,es02,es03"]'
+        line: 'cluster.initial_master_nodes: ["es01,es02"]'
       notify:
         - Restart Elasticsearch service
 
