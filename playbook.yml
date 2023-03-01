@@ -7,7 +7,6 @@
   vars:
     cluster_name: mycluster
     jvm_heap_size: 2g
-    xpack_security_enabled: true
     network_host: 0.0.0.0
     discovery_seed_hosts: "es01,es02,es03"
   tasks:
@@ -62,28 +61,12 @@
         regexp: '^#cluster\.name:'
         line: 'cluster.name: {{ cluster_name }}'
 
-    - name: Set JVM heap size in Elasticsearch configuration
-      become: true
-      lineinfile:
-        path: /etc/elasticsearch/jvm.options
-        regexp: '^-Xm[sx].*$'
-        line: '-Xms{{ jvm_heap_size }}'
-      notify:
-        - Restart Elasticsearch service
-
     - name: Set network.host property in Elasticsearch configuration
       become: true
       lineinfile:
         path: /etc/elasticsearch/elasticsearch.yml
         regexp: '^#network\.host:'
         line: 'network.host: {{ network_host }}'
-
-    - name: Set xpack.security.enabled property in Elasticsearch configuration
-      become: true
-      lineinfile:
-        path: /etc/elasticsearch/elasticsearch.yml
-        regexp: '^#xpack\.security\.enabled:'
-        line: 'xpack.security.enabled: {{ xpack_security_enabled }}'
 
     - name: Set discovery.seed_hosts property in Elasticsearch configuration
       become: true
