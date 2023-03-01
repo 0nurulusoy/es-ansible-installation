@@ -17,7 +17,7 @@ This Ansible playbook sets up a multi-node Elasticsearch cluster with two data n
 
 3. Modify the elasticsearch.yml file to set the cluster name, JVM heap size, network host, and xpack security settings as desired.
 
-4. Run the Ansible-Playbook
+4. Run the Ansible-Playbook, be sure your user have permission to make changes on the remote hosts, or you can add -u root, parameter to auth as a root user to other hosts
 	
 		ansible-playbook -i inventory.ini playbook.yml
 
