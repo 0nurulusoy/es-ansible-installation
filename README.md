@@ -34,3 +34,13 @@ The following variables can be set in the site.yml file to customize the Elastic
 - Check the cluster health with below command.
 		
 		curl -XGET http://es02:9200/_cluster/health?pretty=true
+
+
+
+
+To uninstall
+
+	sudo apt-get --purge autoremove elasticsearch -y
+	sudo apt-get remove --purge elasticsearch 
+	sudo rm -rf /etc/elasticsearch
+	sudo rm -rf /var/lib/elasticsearch
