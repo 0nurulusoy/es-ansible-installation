@@ -20,7 +20,7 @@ Run this command manually,
 
 echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
 
-
+this only applies to single node but i want it to create a cluster with 3 nodes, where 2 data nodes and 1 master and 1 ingest node, also ingest and master should be same host
 
 ### Before running the below commands, establish the SSH connection from ansible-node to es-nodes.
 
