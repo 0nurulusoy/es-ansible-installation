@@ -44,7 +44,7 @@ The variables can be set in the elasticsearch.yml.j2 file to customize the Elast
 
 
 
-To uninstall the elastic search, some helpfull commands,
+To uninstall the elastic search some helpfull commands.
 
 	sudo apt-get --purge autoremove elasticsearch -y
 	sudo apt-get remove --purge elasticsearch 
