@@ -34,15 +34,6 @@
         url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
         state: present
 
-    - name: Add ElasticSearch repository
-      become: true
-      become_method: sudo    
-      apt_repository:
-        repo: 'deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main'
-        filename: elastic-8.x.list
-        state: present
-        update_cache: yes
-
     - name: Install ElasticSearch 8 on Ubuntu 20.04 LTS
       apt:
         update_cache: yes
