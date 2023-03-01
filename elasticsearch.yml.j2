@@ -4,7 +4,8 @@ path.data: /var/lib/elasticsearch/data
 path.logs: /var/log/elasticsearch
 network.host: 0.0.0.0
 discovery.seed_hosts: ["es01", "es02", "es03"]
-cluster.initial_master_nodes: ["es01", "es02", "es03"]
+cluster.initial_master_nodes: ["10.142.0.8", "10.142.0.7", "10.142.0.9"]
 node.roles: ["master", "data"]
 xpack.security.enabled: false
 network.publish_host: {{ node_name }}
+discovery.seed_providers: gce
