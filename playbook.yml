@@ -4,8 +4,19 @@
     - es02
     - es03
   become: true
-  vars:
-    cluster_name: mycluster
+vars:
+    es01:
+      cluster_name: my-es-cluster
+      node_name: es01
+      node_data: true
+    es02:
+      cluster_name: my-es-cluster
+      node_name: es02
+      node_data: true
+    es03:
+      cluster_name: my-es-cluster
+      node_name: es03
+      node_data: false
     elasticsearch_config_file: /etc/elasticsearch/elasticsearch.yml
   tasks:
     - name: Update the server and install apt-transport-https package
@@ -59,6 +70,10 @@
         owner: elasticsearch
         group: elasticsearch
         mode: '0644'
+      vars:
+        cluster_name: "{{ hostvars[inventory_hostname]['cluster_name'] }}"
+        node_name: "{{ hostvars[inventory_hostname]['node_name'] }}"
+        node_data: "{{ hostvars[inventory_hostname]['node_data'] }}"
 
     - name: Start Elasticsearch service
       service:
