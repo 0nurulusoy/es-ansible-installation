@@ -6,7 +6,6 @@
   become: true
   vars:
     cluster_name: mycluster
-    jvm_heap_size: 2g
     network_host: 0.0.0.0
     discovery_seed_hosts: "es01,es02,es03"
   tasks:
