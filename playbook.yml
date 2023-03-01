@@ -63,6 +63,7 @@
         mode: '0644'
         vars:
           node_name: "{{ es01 }}"
+          network.publish_host: "{{ es01 }}"
 
     - name: Start Elasticsearch service
       service:
