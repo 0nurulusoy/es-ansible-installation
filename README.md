@@ -11,7 +11,7 @@ This Ansible playbook sets up a multi-node Elasticsearch cluster with two data n
 
 1. Clone this repository to your local machine:
 
-	git clone https://github.com/tryingtobecoder58/es-ansible-installation
+		git clone https://github.com/tryingtobecoder58/es-ansible-installation
 
 2. Modify the inventory.ini file to include the hostnames or IP addresses of your three servers.
 
@@ -30,7 +30,7 @@ The following variables can be set in the site.yml file to customize the Elastic
 - jvm_heap_size: The JVM heap size for Elasticsearch. Default is 2g.
 - xpack_security_enabled: Whether to enable X-Pack security in Elasticsearch. Default is false.
 - network_host: The network host to use for Elasticsearch. Default is 0.0.0.0.
-- discovery_seed_hosts: A comma-separated list of seed hosts for Elasticsearch discovery. 
-- Default is ["es01", "es02", "es03"].
+- discovery_seed_hosts: A comma-separated list of seed hosts for Elasticsearch discovery. Default is ["es01", "es02", "es03"].
 - Check the cluster health with below command
-	curl -XGET http://es02:9200/_cluster/health?pretty=true
+		
+		curl -XGET http://es02:9200/_cluster/health?pretty=true
