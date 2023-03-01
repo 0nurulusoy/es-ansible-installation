@@ -35,10 +35,7 @@ The variables can be set in the elasticsearch.yml.j2 file to customize the Elast
 
 - The output should look like this for 3 node cluster, which has 2 datanodes.
 
-
-
-![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
-
+https://prnt.sc/oTWvAFosjqop
 
 
 
