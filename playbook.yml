@@ -6,8 +6,7 @@
   become: true
   vars:
     cluster_name: mycluster
-    network_host: 0.0.0.0
-    discovery_seed_hosts: "es01,es02,es03"
+    elasticsearch_config_file: /etc/elasticsearch/elasticsearch.yml
   tasks:
     - name: Update the server and install apt-transport-https package
       apt:
@@ -53,37 +52,13 @@
         name: elasticsearch
         state: present
 
-    - name: Set cluster name in Elasticsearch configuration
-      become: true
-      lineinfile:
-        path: /etc/elasticsearch/elasticsearch.yml
-        regexp: '^#cluster\.name:'
-        line: 'cluster.name: {{ cluster_name }}'
-
-    - name: Set network.host property in Elasticsearch configuration
-      become: true
-      lineinfile:
-        path: /etc/elasticsearch/elasticsearch.yml
-        regexp: '^#network\.host:'
-        line: 'network.host: {{ network_host }}'
-
-    - name: Set discovery.seed_hosts property in Elasticsearch configuration
-      become: true
-      lineinfile:
-        path: /etc/elasticsearch/elasticsearch.yml
-        regexp: '^#discovery\.seed_hosts:'
-        line: 'discovery.seed_hosts: {{ discovery_seed_hosts }}'
-      notify:
-        - Restart Elasticsearch service
-
-    - name: Set cluster initial master nodes in Elasticsearch configuration
-      become: true
-      lineinfile:
-        path: /etc/elasticsearch/elasticsearch.yml
-        regexp: '^cluster.initial_master_nodes:'
-        line: 'cluster.initial_master_nodes: ["es01,es02"]'
-      notify:
-        - Restart Elasticsearch service
+    - name: Generate Elasticsearch configuration file
+      template:
+        src: elasticsearch.yml.j2
+        dest: "{{ elasticsearch_config_file }}"
+        owner: elasticsearch
+        group: elasticsearch
+        mode: '0644'
 
     - name: Start Elasticsearch service
       service:
