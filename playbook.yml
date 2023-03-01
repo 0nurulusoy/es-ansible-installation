@@ -2,14 +2,14 @@
   hosts:
     - es01
     - es02
-    - es03 
+    - es03
   become: true
   vars:
     cluster_name: mycluster
     jvm_heap_size: 2g
     xpack_security_enabled: false
     network_host: 0.0.0.0
-    discovery_seed_hosts: "es01"
+    discovery_seed_hosts: "es01,es02,es03"
   tasks:
     - name: Update the server and install apt-transport-https package
       apt:
@@ -59,7 +59,7 @@
       become: true
       lineinfile:
         path: /etc/elasticsearch/elasticsearch.yml
-        regexp: '^cluster.name:'
+        regexp: '^#cluster\.name:'
         line: 'cluster.name: {{ cluster_name }}'
 
     - name: Set JVM heap size in Elasticsearch configuration
@@ -75,22 +75,33 @@
       become: true
       lineinfile:
         path: /etc/elasticsearch/elasticsearch.yml
-        regexp: '^network.host:'
+        regexp: '^#network\.host:'
         line: 'network.host: {{ network_host }}'
 
     - name: Set xpack.security.enabled property in Elasticsearch configuration
       become: true
       lineinfile:
         path: /etc/elasticsearch/elasticsearch.yml
-        regexp: '^xpack.security.enabled:'
+        regexp: '^#xpack\.security\.enabled:'
         line: 'xpack.security.enabled: {{ xpack_security_enabled }}'
 
     - name: Set discovery.seed_hosts property in Elasticsearch configuration
       become: true
       lineinfile:
         path: /etc/elasticsearch/elasticsearch.yml
-        regexp: '^discovery.seed_hosts:'
+        regexp: '^#discovery\.seed_hosts:'
         line: 'discovery.seed_hosts: {{ discovery_seed_hosts }}'
+      notify:
+        - Restart Elasticsearch service
+
+    - name: Set cluster initial master nodes in Elasticsearch configuration
+      become: true
+      lineinfile:
+        path: /etc/elasticsearch/elasticsearch.yml
+        regexp: '^cluster.initial_master_nodes:'
+        line: 'cluster.initial_master_nodes: ["es01"]'
+      notify:
+        - Restart Elasticsearch service
 
     - name: Start Elasticsearch service
       service:
