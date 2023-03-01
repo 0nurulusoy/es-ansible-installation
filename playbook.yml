@@ -4,7 +4,7 @@
     - es02
     - es03
   become: true
-vars:
+  vars:
     es01:
       cluster_name: my-es-cluster
       node_name: es01
