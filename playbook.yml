@@ -1,5 +1,5 @@
 - name: Install and configure ElasticSearch
-  hosts: elasticsearch_data_nodes
+  hosts: elasticsearch_master_nodes
   become: true
   vars:
     elasticsearch_version: 8.x
