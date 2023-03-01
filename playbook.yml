@@ -1,20 +1,15 @@
-- name: Install and configure Elasticsearch
+- name: Install and configure Elasticsearch cluster
   hosts:
     - es01
     - es02
-    - es03
+    - es03 
   become: true
   vars:
     cluster_name: mycluster
     jvm_heap_size: 2g
     xpack_security_enabled: false
     network_host: 0.0.0.0
-    node_name_prefix: es
-    node_type: master
-    es_version: "8.x"
-    data_node1: es02
-    data_node2: es03
-    discovery_seed_hosts: "{{ node_name_prefix }}[1-3]"
+    discovery_seed_hosts: "es01"
   tasks:
     - name: Update the server and install apt-transport-https package
       apt:
