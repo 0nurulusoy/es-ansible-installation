@@ -40,11 +40,11 @@ The variables can be set in the elasticsearch.yml.j2 file to customize the Elast
 - The output should look like this for 3 node cluster, which has 2 datanodes.
 
 
-		https://i.ibb.co/pvSfpJT/Screenshot-at-Mar-01-18-29-12.png
+	https://i.ibb.co/pvSfpJT/Screenshot-at-Mar-01-18-29-12.png
 
 
 
-To uninstall
+To uninstall the elastic search, some helpfull commands,
 
 	sudo apt-get --purge autoremove elasticsearch -y
 	sudo apt-get remove --purge elasticsearch 
