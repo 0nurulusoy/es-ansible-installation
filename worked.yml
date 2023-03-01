@@ -33,14 +33,12 @@
       apt_key:
         url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
         state: present
-
     - name: Set network.host property in Elasticsearch configuration
-      become: true
-      lineinfile:
-        path: /etc/elasticsearch/elasticsearch.yml
-        regexp: '^network.host:'
-        line: 'network.host: 0.0.0.0'
-
+  become: true
+  lineinfile:
+    path: /etc/elasticsearch/elasticsearch.yml
+    regexp: '^network.host:'
+    line: 'network.host: 0.0.0.0'
     - name: Add ElasticSearch repository
       become: true
       become_method: sudo    
@@ -67,3 +65,9 @@
         name: elasticsearch
         state: started
         enabled: yes
+
+
+
+
+[elasticsearch]
+ansible-node
