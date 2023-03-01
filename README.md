@@ -38,7 +38,7 @@ The variables can be set in the elasticsearch.yml.j2 file to customize the Elast
 
 
 - The output should look like this for 3 node cluster, which has 2 datanodes.
-	https://i.ibb.co/3Tjmts4/download.png
+	https://i.ibb.co/pvSfpJT/Screenshot-at-Mar-01-18-29-12.png
 
 
 
