@@ -6,6 +6,11 @@
   become: true
   vars:
     elasticsearch_config_file: /etc/elasticsearch/elasticsearch.yml
+    node_roles_master_data: ["master", "data"]
+    node_roles_master: ["master"]
+    node_name_es01: "es01"
+    node_name_es02: "es02"
+    node_name_es03: "es03"
   tasks:
     - name: Update the server and install apt-transport-https package
       apt:
@@ -52,46 +57,40 @@
         state: present
 
     - name: Generate Elasticsearch configuration file on es01
-      hosts: es01
+      template:
+        src: elasticsearch.yml.j2
+        dest: "{{ elasticsearch_config_file }}"
+        owner: elasticsearch
+        group: elasticsearch
+        mode: '0644'
+      delegate_to: es01
       vars:
-        node.roles: ["master", "data"]
-        node.name: es01
-      tasks:
-        - name: Generate Elasticsearch configuration file
-          template:
-            src: elasticsearch.yml.j2
-            dest: "{{ elasticsearch_config_file }}"
-            owner: elasticsearch
-            group: elasticsearch
-            mode: '0644'
+        node_roles: "{{ node_roles_master_data }}"
+        node_name: "{{ node_name_es01 }}"
 
-    - name: Generate Elasticsearch configuration file on es01
-      hosts: es02
+    - name: Generate Elasticsearch configuration file on es02
+      template:
+        src: elasticsearch.yml.j2
+        dest: "{{ elasticsearch_config_file }}"
+        owner: elasticsearch
+        group: elasticsearch
+        mode: '0644'
+      delegate_to: es02
       vars:
-        node.roles: ["master", "data"]
-        node.name: es02
-      tasks:
-        - name: Generate Elasticsearch configuration file
-          template:
-            src: elasticsearch.yml.j2
-            dest: "{{ elasticsearch_config_file }}"
-            owner: elasticsearch
-            group: elasticsearch
-            mode: '0644'
+        node_roles: "{{ node_roles_master_data }}"
+        node_name: "{{ node_name_es02 }}"
 
-    - name: Generate Elasticsearch configuration file on es01
-      hosts: es03
+    - name: Generate Elasticsearch configuration file on es03
+      template:
+        src: elasticsearch.yml.j2
+        dest: "{{ elasticsearch_config_file }}"
+        owner: elasticsearch
+        group: elasticsearch
+        mode: '0644'
+      delegate_to: es03
       vars:
-        node.roles: ["master"]
-        node.name: es03
-      tasks:
-        - name: Generate Elasticsearch configuration file
-          template:
-            src: elasticsearch.yml.j2
-            dest: "{{ elasticsearch_config_file }}"
-            owner: elasticsearch
-            group: elasticsearch
-            mode: '0644'
+        node_roles: "{{ node_roles_master }}"
+        node_name: "{{ node_name_es03 }}"
 
     - name: Start Elasticsearch service
       service:
