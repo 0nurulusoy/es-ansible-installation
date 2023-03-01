@@ -3,6 +3,8 @@
 This Ansible playbook sets up a multi-node Elasticsearch cluster with two data nodes and one master/ingest node. The playbook assumes Ubuntu 20.04 LTS as the operating system.
 
 set--> xpack.security.enabled: false
+write me a elasticsearcjh.yml that has 3 nodes and the roles will be 2 datanode, 3 masternode, they should all be able to discover easch other and their roles, and set xpack.security.enabled: false, network_host: 0.0.0.0
+
 
 ## Requirements
 - Ansible 2.10 or higher
