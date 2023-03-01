@@ -1,37 +1,36 @@
 # ElasticSearch Instalation with Ansible
 
-This is an Ansible playbook that installs and configures Elasticsearch on a server. The tasks performed by this playbook are:
+This Ansible playbook sets up a multi-node Elasticsearch cluster with two data nodes and one master/ingest node. The playbook assumes Ubuntu 20.04 LTS as the operating system.
 
-- Update the server and install apt-transport-https package.
-- Update package cache and fix missing dependencies by installing openjdk-11-jdk package.
-- Set JAVA_HOME environment variable.
-- Reload environment variables.
-- Verify JAVA_HOME environment variable.
-- Add Elasticsearch GPG key.
-- Add Elasticsearch repository.
-- Install Elasticsearch 8 on Ubuntu 20.04 LTS.
-- Start Elasticsearch service.
-- Check Elasticsearch service status.
+## Requirements
+- Ansible 2.10 or higher
+- Access to three Ubuntu 20.04 LTS servers
+- SSH access to each server with sudo privileges
 
-In summary, this playbook installs and sets up Elasticsearch on a server by updating the server, installing required packages, and configuring the necessary environment variables and services.
+### Usage
 
-
-Run this command manually,
-
-echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
-
-this only applies to single node but i want it to create a cluster with 3 nodes, where 2 data nodes and 1 master and 1 ingest node, also ingest and master should be same host
-
-### Before running the below commands, establish the SSH connection from ansible-node to es-nodes.
-
-## Test the connect with below command
-
-	ansible all -i inventory.ini -m ping
-
-## Clone this repo to ansible-node
+1. Clone this repository to your local machine:
 
 	git clone https://github.com/tryingtobecoder58/es-ansible-installation
 
-## Run the Ansible-Playbook
+2. Modify the inventory.ini file to include the hostnames or IP addresses of your three servers.
+
+3. Modify the elasticsearch.yml file to set the cluster name, JVM heap size, network host, and xpack security settings as desired.
+
+4. Run the Ansible-Playbook
 	
-	ansible-playbook -i inventory.ini playbook.yml
+		ansible-playbook -i inventory.ini playbook.yml
+
+
+### Configuration
+
+The following variables can be set in the site.yml file to customize the Elasticsearch installation:
+
+- cluster_name: The name of the Elasticsearch cluster. Default is mycluster.
+- jvm_heap_size: The JVM heap size for Elasticsearch. Default is 2g.
+- xpack_security_enabled: Whether to enable X-Pack security in Elasticsearch. Default is false.
+- network_host: The network host to use for Elasticsearch. Default is 0.0.0.0.
+- discovery_seed_hosts: A comma-separated list of seed hosts for Elasticsearch discovery. 
+- Default is ["es01", "es02", "es03"].
+- Check the cluster health with below command
+	curl -XGET http://es02:9200/_cluster/health?pretty=true
