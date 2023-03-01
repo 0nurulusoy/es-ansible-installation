@@ -1,7 +1,8 @@
 # ElasticSearch Instalation with Ansible
 
 This Ansible playbook sets up a multi-node Elasticsearch. The playbook assumes Ubuntu 20.04 LTS as the operating system.
-As long as you don't specify the version this playbook will install latest version of 8.x.x of Elasticserach.
+##As long as you don't specify the version this playbook will install latest version of 8.x.x of Elasticserach.
+You can try to install a specif version, by changing to older repository url on the playbook.
 
 ## Requirements
 - Ansible 2.10 or higher
