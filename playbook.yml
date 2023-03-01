@@ -61,9 +61,12 @@
         owner: elasticsearch
         group: elasticsearch
         mode: '0644'
-      vars:
-        node_name: "{{ es01 }}"
-
+        loop:
+          - "{{ es01 }}"
+          - "{{ es02 }}"
+          - "{{ es03 }}"
+        loop_control:
+          loop_var: node_name
 
     - name: Start Elasticsearch service
       service:

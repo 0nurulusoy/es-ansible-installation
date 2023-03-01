@@ -7,3 +7,4 @@ discovery.seed_hosts: ["es01", "es02", "es03"]
 cluster.initial_master_nodes: ["es01", "es02", "es03"]
 node.roles: ["master", "data"]
 xpack.security.enabled: false
+network.publish_host: {{ node_name }}
