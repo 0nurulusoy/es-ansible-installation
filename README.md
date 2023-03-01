@@ -30,6 +30,7 @@ The variables can be set in the elasticsearch.yml.j2 file to customize the Elast
 - Check the cluster health with below command.
 		
 		curl -XGET http://es02:9200/_cluster/health?pretty=true
+		curl -XGET http://es02:9200/_cat/nodes?pretty=true
 
 
 
