@@ -71,7 +71,6 @@
         group: elasticsearch
         mode: '0644'
       vars:
-        cluster_name: "{{ hostvars[inventory_hostname]['cluster_name'] }}"
         node_name: "{{ hostvars[inventory_hostname]['node_name'] }}"
         node_data: "{{ hostvars[inventory_hostname]['node_data'] }}"
 
