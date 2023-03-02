@@ -15,7 +15,7 @@ You can try to install a specif version, by changing to older repository url on 
 
 1. Clone this repository to your local machine:
 
-		git clone https://github.com/tryingtobecoder58/es-ansible-installation
+		git clone https://github.com/devopsrange/es-ansible-installation
 
 2. Modify the inventory.ini file to include the hostnames or IP addresses of your three servers.
 
