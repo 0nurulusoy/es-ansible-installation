@@ -19,7 +19,7 @@ You can try to install a specif version, by changing to older repository url on 
 
 2. Modify the inventory.ini file to include the hostnames or IP addresses of your three servers.
 
-3. Modify the elasticsearch.yml file to set the cluster name, JVM heap size, network host, and xpack security settings as desired.
+3. Modify the elasticsearch.yml.j2 file to set the cluster name, JVM heap size, network host, and xpack security settings as desired.
 
 4. Run the Ansible-Playbook, be sure your user have permission to make changes on the remote hosts, or you can add -u root, parameter to auth as a root user to other hosts
 	
