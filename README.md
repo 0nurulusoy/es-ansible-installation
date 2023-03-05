@@ -23,7 +23,7 @@ You can try to install a specif version, by changing to older repository url on 
 
 4. Run the Ansible-Playbook, be sure your user have permission to make changes on the remote hosts, or you can add -u root, parameter to auth as a root user to other hosts
 	
-		ansible-playbook -i inventory.ini playbook.yml
+		ansible-playbook -i inventory.ini playbook.yml -u root
 
 
 ### Configuration
