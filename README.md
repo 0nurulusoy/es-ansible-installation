@@ -24,7 +24,17 @@ You can try to install a specif version, by changing to older repository url on 
 4. Run the Ansible-Playbook, be sure your user have permission to make changes on the remote hosts, or you can add -u root, parameter to auth as a root user to other hosts
 	
 		ansible-playbook -i inventory.ini playbook.yml -u root
+		
+5. You need to mannually run these commands, and copy the password when the promp on the screen, after generating the password go to Kibana configuration file, which is in /etc/kibana, then re-write the password for kibana_system user.
 
+	Create elasticsearch password (passwords must be same with certificate passwords.), on es01, es02, es03.
+			
+		/usr/share/elasticsearch/bin/elasticsearch-keystore create -p
+
+	Generate passwords for built-in users on es01,
+			
+		/usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto
+		
 
 ### Configuration
 
